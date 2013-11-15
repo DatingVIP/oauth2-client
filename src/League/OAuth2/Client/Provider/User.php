@@ -14,7 +14,7 @@ class User implements \IteratorAggregate {
     public $description = null;
     public $imageUrl = null;
     public $urls = null;
-    public $valid = null;
+    public $verified = null;
 
     public function __set($name, $value)
     {
