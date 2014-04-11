@@ -12,6 +12,9 @@
         "phpunit/phpunit": "*",
         "fzaninotto/faker": "*"
     },
+    "replace": {
+        "league/oauth2-client": "*"
+    },
     "repositories": [
         {
             "type": "git",
