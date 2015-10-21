@@ -1,7 +1,6 @@
 {
     "name": "datingvip/oauth2-client",
     "description": "OAuth 2.0 Client Library",
-    "version": "0.1",
     "homepage": "https://github.com/datingvip/oauth2-client",
     "license": "MIT",
     "require": {
