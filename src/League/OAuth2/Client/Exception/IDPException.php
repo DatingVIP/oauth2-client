@@ -62,5 +62,15 @@ class IDPException extends \Exception
 
         return $str . $this->message;
     }
+    
+    /**
+     * Return result propery value
+     * 
+     * @returns mixed (array|string)
+     */
+    public function getResult () 
+    {
+        return $this->result;
+    }
 
 }
