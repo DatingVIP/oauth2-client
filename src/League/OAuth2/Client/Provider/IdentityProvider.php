@@ -2,7 +2,7 @@
 
 namespace League\OAuth2\Client\Provider;
 
-use Guzzle\Service\Client as GuzzleClient;
+use GuzzleHttp\Client as GuzzleClient;
 use League\OAuth2\Client\Token\AccessToken as AccessToken;
 use League\OAuth2\Client\Token\Authorize as AuthorizeToken;
 use League\OAuth2\Client\Exception\IDPException as IDPException;
@@ -103,17 +103,17 @@ abstract class IdentityProvider {
         try {
             switch ($this->method) {
                 case 'get':
-                    $client = new GuzzleClient($this->urlAccessToken() . '?' . http_build_query($requestParams));
-                    $request = $client->send();
+                    $client = new GuzzleClient();
+                    $request = $client->request('GET', $this->urlAccessToken(), $requestParams);
                     $response = $request->getBody();
                     break;
                 case 'post':
-                    $client = new GuzzleClient($this->urlAccessToken());
-                    $request = $client->post(null, null, $requestParams)->send();
+                    $client = new GuzzleClient();
+                    $request = $client->request('POST', $this->urlAccessToken(), $requestParams);
                     $response = $request->getBody();
                     break;
             }
-        } catch (\Guzzle\Http\Exception\BadResponseException $e) {
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
             $raw_response = explode("\n", $e->getResponse());
             $response = end($raw_response);
         }
@@ -170,12 +170,12 @@ abstract class IdentityProvider {
 
             try {
 
-                $client = new GuzzleClient($url);
-                $request = $client->get()->send();
+                $client = new GuzzleClient();
+                $request = $client->request($url);
                 $response = $request->getBody();
                 $this->cachedUserDetailsResponse = $response;
 
-            } catch (\Guzzle\Http\Exception\BadResponseException $e) {
+            } catch (\GuzzleHttp\Exception\RequestException $e) {
 
                 $raw_response = explode("\n", $e->getResponse());
                 throw new IDPException(end($raw_response));
