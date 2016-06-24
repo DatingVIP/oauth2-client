@@ -104,12 +104,12 @@ abstract class IdentityProvider {
             switch ($this->method) {
                 case 'get':
                     $client = new GuzzleClient();
-                    $request = $client->request('GET', $this->urlAccessToken(), $requestParams);
+                    $request = $client->get($this->urlAccessToken(), ['query' => $requestParams]);
                     $response = $request->getBody();
                     break;
                 case 'post':
                     $client = new GuzzleClient();
-                    $request = $client->request('POST', $this->urlAccessToken(), $requestParams);
+                    $request = $client->post($this->urlAccessToken(), ['form_params' => $requestParams]);
                     $response = $request->getBody();
                     break;
             }
@@ -171,7 +171,7 @@ abstract class IdentityProvider {
             try {
 
                 $client = new GuzzleClient();
-                $request = $client->request($url);
+                $request = $client->get($url);
                 $response = $request->getBody();
                 $this->cachedUserDetailsResponse = $response;
 
